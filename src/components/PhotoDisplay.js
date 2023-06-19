@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { db } from "../firebase";
-import TargetingBox from "./TargetingBox";
+import React, { useEffect, useState } from "react";
+import { db } from '../firebase';
 
-const PhotoDisplay = () => {
-    const [clickPosition, setClickPosition] = useState(null);
+function PhotoDisplay() {
     const [characters, setCharacters] = useState([]);
 
     useEffect(() => {
@@ -13,16 +11,11 @@ const PhotoDisplay = () => {
         });
     }, []);
 
-    const handleClick = (event) => {
-        const x = event.clientX;
-        const y = event.clientY;
-        setClickPosition({ x, y });
-    };
-
     return (
-        <div onClick={handleClick}>
-            <img src="path-to-your-photo.jpg" alt="Where's Waldo?" />
-            {clickPosition && <TargetingBox position={clickPosition} characters={characters} />}
+        <div>
+            {characters.map((character, index) => (
+                <img key={index} src={character.image} alt={character.name} />
+            ))}
         </div>
     );
 }
