@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { db } from '../firebase';
 
-function PhotoDisplay() {
-    const [characters, setCharacters] = useState([]);
+const PhotoDisplay = ({ characters }) => {
+    const [charactersData, setCharactersData] = useState([]);
 
     useEffect(() => {
-        db.collection("characters").get().then((QuerySnapshot) => {
-            const data = QuerySnapshot.docs.map((doc) => doc.data());
-            setCharacters(data);
-        });
-    }, []);
+        setCharactersData(characters);
+    }, [characters]);
 
     return (
         <div>
-            {characters.map((character, index) => (
-                <img key={index} src={character.image} alt={character.name} />
+            {charactersData.map((character, index) => (
+                <img key={index} src={character.url} alt={character.name} />
             ))}
         </div>
     );
-}
+};
 
 export default PhotoDisplay;
