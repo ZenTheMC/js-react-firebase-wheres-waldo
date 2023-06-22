@@ -1,11 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const ScoreBoard = () => {
+const ScoreBoard = ({ score, incrementScore, startNewGame }) => {
     return (
         <div>
-            Current Score:
+            <div data-testid="score-display">
+                Current Score: {score}
+            </div>
+            <button data-testid="increment-score" onClick={incrementScore}>
+                Increment Score
+            </button>
+            <button data-testid="start-new-game" onClick={startNewGame}>
+                Start New Game
+            </button>
         </div>
-    )
+    );
 };
 
 export default ScoreBoard;
