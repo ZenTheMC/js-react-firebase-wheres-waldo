@@ -1,6 +1,22 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom"
 import GameBoard from "../components/GameBoard";
+// eslint-disable-next-line no-unused-vars
+import { db } from "../firebase";
+
+jest.mock("../firebase", () => ({
+    db: {
+        collection: jest.fn().mockReturnValue({
+            get: jest.fn().mockResolvedValue({
+                docs: [
+                    { 
+                        data: jest.fn().mockReturnValue({ name: "Character 1", location: { x: 1, y: 1 } }) 
+                    }
+                ]
+            })
+        })
+    }
+}));
 
 describe("GameBoard", () => {
 
@@ -11,11 +27,13 @@ describe("GameBoard", () => {
         expect(gameBoardElement).toBeInTheDocument();
     });
 
-    test("displays characters correctly", () => {
+    test("displays characters correctly", async () => {
         // Test that the game board displays the correct characters
         render(<GameBoard />);
-        const characterElement = screen.getByTestId("character");
-        expect(characterElement).toBeInTheDocument();
+        await waitFor(() => {
+            const characterElement = screen.getByTestId("character");
+            expect(characterElement).toBeInTheDocument();
+        });
     });
 
     jest.useFakeTimers();
@@ -23,7 +41,7 @@ describe("GameBoard", () => {
     test("allows use to select a character", async () => {
         // Test that the game board allows the user to select a character
         render(<GameBoard />);
-        const characterElement = screen.getByTestId("character");
+        const characterElement = await screen.findByTestId("character");
         // Simulate selecting a character
         fireEvent.click(characterElement);
         // Check if the score has been updated
