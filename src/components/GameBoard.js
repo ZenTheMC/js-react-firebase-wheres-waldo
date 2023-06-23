@@ -10,15 +10,21 @@ const GameBoard = () => {
     useEffect(() => {
         const fetchCharacters = async () => {
             const charactersCollection = await db.collection('characters').get();
-            setCharacters(charactersCollection.docs.map(doc => doc.data()));
+            setCharacters(charactersCollection.docs.map(doc => {
+                const data = doc.data();
+                return {
+                    ...data,
+                    location: { x: data.location.x, y: data.location.y }
+                };
+            }));
         };
         fetchCharacters();
-    }, []);
+    }, []);    
 
     const handleCharacterClick = () => {
         // Increment the score when a character is clicked
         setScore(prevScore => prevScore + 1);
-    };
+    };    
 
     const startNewGame = () => {
         setScore(0);

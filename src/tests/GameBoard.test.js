@@ -1,27 +1,34 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import "@testing-library/jest-dom"
 import GameBoard from "../components/GameBoard";
 // eslint-disable-next-line no-unused-vars
 import { db } from "../firebase";
 
-jest.mock("../firebase", () => ({
-    db: {
-        collection: jest.fn().mockReturnValue({
-            get: jest.fn().mockResolvedValue({
-                docs: [
-                    { 
-                        data: jest.fn().mockReturnValue({ name: "Character 1", location: { x: 1, y: 1 } }) 
-                    }
-                ]
-            })
-        })
+jest.mock("../firebase", () => {
+    return {
+        db: {
+            collection: () => {
+                return {
+                    get: jest.fn().mockResolvedValue({
+                        docs: [
+                            { 
+                                data: jest.fn().mockReturnValue({ name: "Character 1", location: { x: 1, y: 1 } }) 
+                            }
+                        ]
+                    })
+                }
+            }
+        }
     }
-}));
+});
 
 describe("GameBoard", () => {
 
-    test("renders GameBoard component", () => {
-        render(<GameBoard />);
+    test("renders GameBoard component", async () => {
+        // eslint-disable-next-line testing-library/no-unnecessary-act
+        await act(async () => {
+            render(<GameBoard />);
+        });
         // Verify that the GameBoard component renders correctly
         const gameBoardElement = screen.getByTestId("game-board");
         expect(gameBoardElement).toBeInTheDocument();
