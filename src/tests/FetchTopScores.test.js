@@ -3,9 +3,9 @@ import { render, screen } from "@testing-library/react";
 import FetchTopScores from "../components/FetchTopScores";
 import "@testing-library/jest-dom";
 
+// Mock Firebase
 const mockGet = jest.fn();
-
-jest.mock("../firebase", () => ({
+jest.mock('../firebase', () => ({
     db: {
         collection: () => ({
             orderBy: () => ({
@@ -18,20 +18,28 @@ jest.mock("../firebase", () => ({
 }));
 
 describe("FetchTopScores", () => {
-    test("renders with loading indicator", () => {
-        render(<FetchTopScores />);
-        const loadingElement = screen.getByText(/loading/i);
-        expect(loadingElement).toBeInTheDocument();
-    });
-
-    test("fetches and displays the top scores", async () => {
-        mockGet.mockResolvedValueOnce(Promise.resolve({
+    test("renders with loading indicator", async () => {
+        mockGet.mockResolvedValueOnce({
             docs: [
                 { data: () => ({ username: "user1", score: 10 }) },
                 { data: () => ({ username: "user2", score: 8 }) },
             ],
-        }));
+        });
+        render(<FetchTopScores />);
+        const loadingElement = screen.getByText(/loading/i);
+        expect(loadingElement).toBeInTheDocument();
 
+        // Wait for the scores to be fetched
+        await screen.findByText(/leaderboard/i);
+    });
+
+    test("fetches and displays the top scores", async () => {
+        mockGet.mockResolvedValueOnce({
+            docs: [
+                { data: () => ({ username: "user1", score: 10 }) },
+                { data: () => ({ username: "user2", score: 8 }) },
+            ],
+        });
         render(<FetchTopScores />);
 
         const leaderboardElement = await screen.findByText(/leaderboard/i);
@@ -45,13 +53,13 @@ describe("FetchTopScores", () => {
     });
 
     test("handles errors gracefully", async () => {
-        mockGet.mockRejectedValueOnce(Promise.reject(new Error("An error occurred")));
+        mockGet.mockRejectedValueOnce(new Error("An error occurred"));
 
         console.error = jest.fn(); // Silence the console.error output for this test
 
         render(<FetchTopScores />);
 
-        const errorElement = await screen.findByText(/failed to fetch scores/i);
+        const errorElement = await screen.findByText(/Failed to fetch scores/i);
         expect(errorElement).toBeInTheDocument();
     });
 });
