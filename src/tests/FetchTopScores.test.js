@@ -9,8 +9,10 @@ jest.mock('../firebase', () => ({
     db: {
         collection: () => ({
             orderBy: () => ({
-                limit: () => ({
-                    get: mockGet,
+                orderBy: () => ({
+                    limit: () => ({
+                        get: mockGet,
+                    }),
                 }),
             }),
         }),
