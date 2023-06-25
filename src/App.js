@@ -1,20 +1,18 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
-import Leaderboards from "./pages/Leaderboards";
-import FetchTopScores from "./components/FetchTopScores";
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Game from './pages/Game';
+import Leaderboards from './pages/Leaderboards';
 
 const App = () => {
   return (
-    <div className="App">
-      <Switch>
-        <Route path="/leaderboards">
-          <Leaderboards />
-        </Route>
-        <Route path="/fetch-top-scores">
-          <FetchTopScores />
-        </Route>
-      </Switch>
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Game} />
+          <Route path="/leaderboards" component={Leaderboards} />
+        </Switch>
+      </div>
+    </Router>
   );
 };
 
