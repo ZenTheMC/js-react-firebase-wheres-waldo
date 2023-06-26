@@ -14,11 +14,11 @@ const CharacterSelection = ({ position, characters }) => {
   return (
     <select data-testid="character-selection" onChange={handleSelect}>
       <option value="">Select a character</option>
-      <option value="charmander">Waldo</option>
-      <option value="bulbasaur">Wizard</option>
-      <option value="squirtle">Wilma</option>
-      <option value="raichu">Waldo</option>
-      <option value="eevee">Waldo</option>
+      <option value="charmander">Charmander</option>
+      <option value="bulbasaur">Bulbasaur</option>
+      <option value="squirtle">Squirtle</option>
+      <option value="raichu">Raichu</option>
+      <option value="eevee">Eevee</option>
     </select>
   );
 }

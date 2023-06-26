@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Character from "./Character";
 import ScoreBoard from "./ScoreBoard";
 import { db } from "../firebase";
+import { collection, getDocs } from 'firebase/firestore';
 
 const GameBoard = () => {
     const [score, setScore] = useState(0);
@@ -9,8 +10,9 @@ const GameBoard = () => {
 
     useEffect(() => {
         const fetchCharacters = async () => {
-            const charactersCollection = await db.collection('characters').get();
-            setCharacters(charactersCollection.docs.map(doc => {
+            const charactersCollection = collection(db, 'characters');
+            const charactersSnapshot = await getDocs(charactersCollection);
+            setCharacters(charactersSnapshot.docs.map(doc => {
                 const data = doc.data();
                 return {
                     ...data,
@@ -19,12 +21,12 @@ const GameBoard = () => {
             }));
         };
         fetchCharacters();
-    }, []);    
+    }, []);
 
     const handleCharacterClick = () => {
         // Increment the score when a character is clicked
         setScore(prevScore => prevScore + 1);
-    };    
+    };
 
     const startNewGame = () => {
         setScore(0);

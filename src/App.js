@@ -4,16 +4,20 @@ import Game from './pages/Game';
 import Leaderboards from './pages/Leaderboards';
 
 const App = () => {
-  return (
-    <Router>
-      <div className="App">
+
+  const isTestEnvironment = process.env.NODE_ENV === "test";
+
+  const content = (
+    <div className="App">
         <Routes>
-          <Route path="/" exact component={Game} />
-          <Route path="/leaderboards" component={Leaderboards} />
+          <Route path="/" element={<Game />} exact />
+          <Route path="/leaderboards" element={<Leaderboards />} />
         </Routes>
       </div>
-    </Router>
-  );
+  )
+
+  return isTestEnvironment ? content : <Router>{content}</Router>;
+
 };
 
 export default App;
