@@ -8,8 +8,8 @@ const PhotoDisplay = ({ characters }) => {
     }, [characters]);
 
     return (
-        <div>
-            {charactersData.map((character, index) => (
+        <div data-testid="photo-display">
+            {Array.isArray(charactersData) && charactersData.map((character, index) => (
                 <img key={index} src={character.url} alt={character.name} />
             ))}
         </div>

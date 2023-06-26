@@ -12,7 +12,7 @@ const CharacterSelection = ({ position, characters }) => {
   };
 
   return (
-    <select onChange={handleSelect}>
+    <select data-testid="character-selection" onChange={handleSelect}>
       <option value="">Select a character</option>
       <option value="charmander">Waldo</option>
       <option value="bulbasaur">Wizard</option>

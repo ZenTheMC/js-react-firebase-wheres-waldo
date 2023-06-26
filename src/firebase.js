@@ -1,5 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: "AIzaSyB2dHCR9F5IxxYYtjTHwylkTEu0MJgq1vI",
@@ -11,6 +11,21 @@ const firebaseConfig = {
   measurementId: "G-HN47DKDJKP"
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-export const db = firebase.firestore();
+const addScore = async (username, score) => {
+  try {
+    const scoresCollection = collection(db, 'scores');
+    const docRef = await addDoc(scoresCollection, {
+      username,
+      score,
+      timestamp: new Date()
+    });
+    console.log("Score added with ID: ", docRef.id);
+  } catch (e) {
+    console.error("Error adding score: ", e);
+  }
+};
+
+export { db, addScore };

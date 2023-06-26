@@ -27,13 +27,13 @@ const Timer = () => {
     return (
         <div>
             <div data-testid="timer-display">
-            Time: {seconds} seconds
+                Time: {seconds} seconds
             </div>
             <button onClick={startGame}>
-            Start Game
+                Start Game
             </button>
             <button onClick={endGame}>
-            End Game
+                End Game
             </button>
         </div>
     );
