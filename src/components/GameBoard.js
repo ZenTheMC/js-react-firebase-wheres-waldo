@@ -3,10 +3,13 @@ import Character from "./Character";
 import ScoreBoard from "./ScoreBoard";
 import { db } from "../firebase";
 import { collection, getDocs } from 'firebase/firestore';
+import Background from "./Background";
+import styles from '../styles/GameBoard.module.css';
 
 const GameBoard = () => {
     const [score, setScore] = useState(0);
     const [characters, setCharacters] = useState([]);
+    const numberOfImages = 25;
 
     useEffect(() => {
         const fetchCharacters = async () => {
@@ -34,9 +37,18 @@ const GameBoard = () => {
 
     return (
         <div data-testid="game-board">
+            <Background />
             <ScoreBoard score={score} incrementScore={handleCharacterClick} startNewGame={startNewGame} />
             {characters.map((character, index) => (
                 <Character key={index} onClick={handleCharacterClick} character={character} />
+            ))}
+            {Array.from({ length: numberOfImages }, (_, index) => (
+                <img
+                    key={index}
+                    src={`../images/Pokemon-${index + 1}.png`}
+                    alt={`Pokemon ${index + 1}`}
+                    className={styles.pokemon}
+                />
             ))}
         </div>
     );

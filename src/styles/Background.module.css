@@ -1,0 +1,9 @@
+.backgroundContainer {
+    display: flex;
+    flex-direction: column;
+}
+  
+.backgroundContainer img {
+    width: 100%;
+    display: block;
+}  
