@@ -1,57 +1,61 @@
+import React from 'react';
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import GameBoard from "../components/GameBoard";
 
 // Mock Firebase functions and objects
-jest.mock("../firebase", () => ({
-    db: {},
-    addScore: jest.fn(),
-}));
-
-jest.mock("firebase/firestore", () => ({
-    collection: jest.fn(() => ({
-        doc: jest.fn(() => ({
-            get: jest.fn(() => Promise.resolve({
-                exists: true,
-                data: () => ({
-                    name: "Character",
-                    location: {
-                        x: 100,
-                        y: 100,
-                    },
-                }),
+jest.mock('firebase/app', () => {
+    return {
+        __esModule: true,
+        initializeApp: jest.fn(() => ({
+            _getProvider: jest.fn(() => ({ initialize: jest.fn() })),
+        })),
+        getApps: jest.fn(() => []),
+        getFirestore: jest.fn(() => ({
+            collection: jest.fn(() => ({
+                get: jest.fn(() => Promise.resolve({
+                    docs: [
+                        { data: jest.fn(() => ({ url: 'gs://path-to-your-image-1' })) },
+                        { data: jest.fn(() => ({ url: 'gs://path-to-your-image-2' })) },
+                        { data: jest.fn(() => ({ url: 'gs://path-to-your-image-3' })) },
+                        { data: jest.fn(() => ({ url: 'gs://path-to-your-image-4' })) },
+                        { data: jest.fn(() => ({ url: 'gs://path-to-your-image-5' })) },
+                    ],
+                })),
             })),
         })),
-    })),
-    getDocs: jest.fn(() => Promise.resolve({
-        docs: [
-            {
-                data: () => ({
-                    name: "Character",
-                    location: {
-                        x: 100,
-                        y: 100,
-                    },
-                    url: "gs://path-to-your-image",
-                }),
-            },
-        ],
-    })),
-}));
-
-jest.mock("firebase/storage", () => ({
-    getStorage: jest.fn(() => ({
-        ref: jest.fn(() => ({
-            getDownloadURL: jest.fn(() => Promise.resolve("url-to-your-image")),
+        getStorage: jest.fn(() => ({
+            ref: jest.fn(() => ({
+                getDownloadURL: jest.fn(() => Promise.resolve('https://path-to-your-image')),
+            })),
         })),
-    })),
-}));
+    };
+});
 
 jest.mock('../components/Character', () => {
     return {
         __esModule: true,
         default: () => {
-            return <div data-testid="character"></div>;
+            return <img data-testid="character" alt="mocked character" />;
+        },
+    };
+});
+
+// Mock Background and Pokemon components
+jest.mock('../components/Background', () => {
+    return {
+        __esModule: true,
+        default: () => {
+            return <div data-testid="background"></div>;
+        },
+    };
+});
+
+jest.mock('../components/Pokemon', () => {
+    return {
+        __esModule: true,
+        default: () => {
+            return <div data-testid="pokemon"></div>;
         },
     };
 });
@@ -78,7 +82,9 @@ describe("GameBoard", () => {
         render(<GameBoard />);
         const characterElement = await screen.findByTestId("character");
         fireEvent.click(characterElement);
-        const updatedScoreElement = await screen.findByText(/Current Score: 1/);
-        expect(updatedScoreElement).toBeInTheDocument();
+        await waitFor(() => {
+            const updatedScoreElement = screen.getByText(/Current Score: 1/);
+            expect(updatedScoreElement).toBeInTheDocument();
+        });
     });
 });
