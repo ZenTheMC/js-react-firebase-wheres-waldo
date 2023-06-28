@@ -1,10 +1,23 @@
 import React from "react";
 
-const Character = ({ onClick }) => {
+const Character = ({ character, onClick }) => {
+    const { url, location } = character;
+
+    const characterStyle = {
+        position: 'absolute',
+        top: `${location.y}%`,
+        left: `${location.x}%`,
+        cursor: 'pointer',
+    };
+
     return (
-        <div data-testid="character" onClick={onClick}>
-            Character
-        </div>
+        <img
+            data-testid="character"
+            src={url}
+            alt="character"
+            style={characterStyle}
+            onClick={onClick}
+        />
     );
 };
 

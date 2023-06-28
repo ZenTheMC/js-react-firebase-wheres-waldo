@@ -2,12 +2,28 @@ import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import GameBoard from "../components/GameBoard";
 
-jest.mock('firebase/firestore', () => ({
-    getFirestore: () => ({}),
-    collection: (db, collectionName) => ({
-        collectionName
-    }),
-    getDocs: (collectionRef) => Promise.resolve({
+// Mock Firebase functions and objects
+jest.mock("../firebase", () => ({
+    db: {},
+    addScore: jest.fn(),
+}));
+
+jest.mock("firebase/firestore", () => ({
+    collection: jest.fn(() => ({
+        doc: jest.fn(() => ({
+            get: jest.fn(() => Promise.resolve({
+                exists: true,
+                data: () => ({
+                    name: "Character",
+                    location: {
+                        x: 100,
+                        y: 100,
+                    },
+                }),
+            })),
+        })),
+    })),
+    getDocs: jest.fn(() => Promise.resolve({
         docs: [
             {
                 data: () => ({
@@ -16,11 +32,29 @@ jest.mock('firebase/firestore', () => ({
                         x: 100,
                         y: 100,
                     },
+                    url: "gs://path-to-your-image",
                 }),
             },
         ],
-    }),
+    })),
 }));
+
+jest.mock("firebase/storage", () => ({
+    getStorage: jest.fn(() => ({
+        ref: jest.fn(() => ({
+            getDownloadURL: jest.fn(() => Promise.resolve("url-to-your-image")),
+        })),
+    })),
+}));
+
+jest.mock('../components/Character', () => {
+    return {
+        __esModule: true,
+        default: () => {
+            return <div data-testid="character"></div>;
+        },
+    };
+});
 
 describe("GameBoard", () => {
 

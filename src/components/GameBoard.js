@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import Character from "./Character";
 import ScoreBoard from "./ScoreBoard";
 import { db } from "../firebase";
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage"; // Note the change here
 import Background from "./Background";
 import Pokemon from "./Pokemon";
 
@@ -14,13 +15,20 @@ const GameBoard = () => {
         const fetchCharacters = async () => {
             const charactersCollection = collection(db, 'characters');
             const charactersSnapshot = await getDocs(charactersCollection);
-            setCharacters(charactersSnapshot.docs.map(doc => {
+            const storage = getStorage();
+
+            const charactersData = await Promise.all(charactersSnapshot.docs.map(async doc => {
                 const data = doc.data();
+                const imageRef = ref(storage, data.url); // Use the gs:// URL to create a reference
+                const downloadUrl = await getDownloadURL(imageRef); // Get the download URL
                 return {
                     ...data,
+                    url: downloadUrl, // Replace the gs:// URL with the download URL
                     location: { x: data.location.x, y: data.location.y }
                 };
             }));
+
+            setCharacters(charactersData);
         };
         fetchCharacters();
     }, []);
