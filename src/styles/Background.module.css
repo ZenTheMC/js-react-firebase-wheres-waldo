@@ -1,9 +1,17 @@
 .backgroundContainer {
     display: flex;
     flex-direction: column;
+    position: relative;
+    height: 7400px;
 }
   
 .backgroundContainer img {
     width: 100%;
     display: block;
-}  
+}
+
+@media screen and (max-width: 750px) {
+    .backgroundContainer {
+        height: 5000px;
+    }
+}
