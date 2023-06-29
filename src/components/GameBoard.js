@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Character from "./Character";
 import ScoreBoard from "./ScoreBoard";
-import { db } from "../firebase";
-import { collection, getDocs } from "firebase/firestore";
-import { getStorage, ref, getDownloadURL } from "firebase/storage"; // Note the change here
 import Background from "./Background";
 import Pokemon from "./Pokemon";
+import { db } from "../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 
 const GameBoard = () => {
     const [score, setScore] = useState(0);
@@ -19,11 +19,11 @@ const GameBoard = () => {
 
             const charactersData = await Promise.all(charactersSnapshot.docs.map(async doc => {
                 const data = doc.data();
-                const imageRef = ref(storage, data.url); // Use the gs:// URL to create a reference
-                const downloadUrl = await getDownloadURL(imageRef); // Get the download URL
+                const imageRef = ref(storage, data.url);
+                const downloadUrl = await getDownloadURL(imageRef);
                 return {
                     ...data,
-                    url: downloadUrl, // Replace the gs:// URL with the download URL
+                    url: downloadUrl,
                     location: { x: data.location.x, y: data.location.y }
                 };
             }));
@@ -34,7 +34,6 @@ const GameBoard = () => {
     }, []);
 
     const handleCharacterClick = () => {
-        // Increment the score when a character is clicked
         setScore(prevScore => prevScore + 1);
     };
 
