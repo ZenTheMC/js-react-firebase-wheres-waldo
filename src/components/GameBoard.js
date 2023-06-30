@@ -36,16 +36,29 @@ const GameBoard = () => {
         fetchCharacters();
     }, []);
 
-    const handleCharacterClick = (character) => {
-        setScore(prevScore => prevScore + 1);
-        setIsTargetingBoxVisible(true);
-        setTargetingBoxPosition(character.location);
-    };
+    const handleCharacterClick = (characterElement, characterData) => {
+        console.log('characterElement:', characterElement); // Debugging line
+        console.log('characterData:', characterData); // Debugging line
+    
+        if (characterElement && typeof characterElement.getBoundingClientRect === 'function') {
+            setScore(prevScore => prevScore + 1);
+            setIsTargetingBoxVisible(true);
+    
+            const boundingBox = characterElement.getBoundingClientRect();
+            const x = boundingBox.left + window.pageXOffset;
+            const y = boundingBox.top + window.pageYOffset;
+    
+            setTargetingBoxPosition({ x, y });
+        } else {
+            console.error('Invalid element passed to handleCharacterClick');
+        }
+    };       
 
     const startNewGame = () => {
         setScore(0);
         setIsTargetingBoxVisible(false);
-    };
+        setTargetingBoxPosition({ x: 0, y: 0 }); // Reset the position as well
+    };    
 
     return (
         <div data-testid="game-board">
@@ -53,7 +66,7 @@ const GameBoard = () => {
             <Pokemon />
             <ScoreBoard score={score} startNewGame={startNewGame} />
             {characters.map((character, index) => (
-                <Character key={index} onClick={() => handleCharacterClick(character)} character={character} />
+                <Character key={index} onClick={handleCharacterClick} character={character} />
             ))}
             {isTargetingBoxVisible && <TargetingBox position={targetingBoxPosition} characters={characters} />}
         </div>

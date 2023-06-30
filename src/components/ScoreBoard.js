@@ -2,10 +2,10 @@ import React from "react";
 import { addScore } from '../firebase';
 
 const ScoreBoard = ({ score, startNewGame, username }) => {
-    const handleNewGame = async () => {
-        await addScore(username, score);
-        startNewGame();
-    };
+    const handleNewGame = () => {
+        startNewGame(); // Call this immediately
+        addScore(username, score); // Don't wait for this to complete
+    };    
 
     return (
         <div>
