@@ -16,7 +16,7 @@ const Character = ({ character, onClick }) => {
             src={url}
             alt="character"
             style={characterStyle}
-            onClick={onClick}
+            onClick={() => onClick(location)}
         />
     );
 };

@@ -6,10 +6,13 @@ import Pokemon from "./Pokemon";
 import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import TargetingBox from "./TargetingBox";
 
 const GameBoard = () => {
     const [score, setScore] = useState(0);
     const [characters, setCharacters] = useState([]);
+    const [isTargetingBoxVisible, setIsTargetingBoxVisible] = useState(false);
+    const [targetingBoxPosition, setTargetingBoxPosition] = useState({ x: 0, y: 0 });
 
     useEffect(() => {
         const fetchCharacters = async () => {
@@ -33,22 +36,26 @@ const GameBoard = () => {
         fetchCharacters();
     }, []);
 
-    const handleCharacterClick = () => {
+    const handleCharacterClick = (character) => {
         setScore(prevScore => prevScore + 1);
+        setIsTargetingBoxVisible(true);
+        setTargetingBoxPosition(character.location);
     };
 
     const startNewGame = () => {
         setScore(0);
+        setIsTargetingBoxVisible(false);
     };
 
     return (
         <div data-testid="game-board">
             <Background />
             <Pokemon />
-            <ScoreBoard score={score} incrementScore={handleCharacterClick} startNewGame={startNewGame} />
+            <ScoreBoard score={score} startNewGame={startNewGame} />
             {characters.map((character, index) => (
-                <Character key={index} onClick={handleCharacterClick} character={character} />
+                <Character key={index} onClick={() => handleCharacterClick(character)} character={character} />
             ))}
+            {isTargetingBoxVisible && <TargetingBox position={targetingBoxPosition} characters={characters} />}
         </div>
     );
 };
