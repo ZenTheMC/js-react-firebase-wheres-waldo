@@ -3,8 +3,9 @@ import { addScore } from '../firebase';
 
 const ScoreBoard = ({ score, startNewGame, username }) => {
     const handleNewGame = () => {
-        startNewGame(); // Call this immediately
-        addScore(username, score); // Don't wait for this to complete
+        console.log("handleNewGame function called"); // Add this line
+        startNewGame();
+        addScore(username, score);
     };    
 
     return (
@@ -12,7 +13,7 @@ const ScoreBoard = ({ score, startNewGame, username }) => {
             <div data-testid="score-display">
                 Current Score: {score}
             </div>
-            <button data-testid="start-new-game" onClick={handleNewGame}>
+            <button data-testid="start-new-game" onClick={() => { console.log("Button clicked"); handleNewGame(); }}>
                 Start New Game
             </button>
         </div>

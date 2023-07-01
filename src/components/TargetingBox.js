@@ -2,8 +2,8 @@ import React from "react";
 import CharacterSelection from "./CharacterSelection";
 
 const TargetingBox = ({ position, characters }) => {
-    const boxWidth = 100; // You can adjust this
-    const boxHeight = 50; // You can adjust this
+    const boxWidth = 135; // You can adjust this
+    const boxHeight = 20; // You can adjust this
 
     const targetingBoxStyle = {
         position: 'absolute',

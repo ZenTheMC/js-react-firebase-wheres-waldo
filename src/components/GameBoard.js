@@ -57,14 +57,14 @@ const GameBoard = () => {
     const startNewGame = () => {
         setScore(0);
         setIsTargetingBoxVisible(false);
-        setTargetingBoxPosition({ x: 0, y: 0 }); // Reset the position as well
-    };    
+        setTargetingBoxPosition({ x: 0, y: 0 });
+    };
 
     return (
         <div data-testid="game-board">
             <Background />
             <Pokemon />
-            <ScoreBoard score={score} startNewGame={startNewGame} />
+            <ScoreBoard score={score} startNewGame={startNewGame} username="exampleUser" />
             {characters.map((character, index) => (
                 <Character key={index} onClick={handleCharacterClick} character={character} />
             ))}
