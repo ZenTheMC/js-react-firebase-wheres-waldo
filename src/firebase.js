@@ -14,7 +14,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const addScore = async (username, score) => {
+const addScore = async (username, score,) => {
   try {
     const scoresCollection = collection(db, 'scores');
     const docRef = await addDoc(scoresCollection, {

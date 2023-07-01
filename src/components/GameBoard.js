@@ -13,6 +13,7 @@ const GameBoard = () => {
     const [characters, setCharacters] = useState([]);
     const [isTargetingBoxVisible, setIsTargetingBoxVisible] = useState(false);
     const [targetingBoxPosition, setTargetingBoxPosition] = useState({ x: 0, y: 0 });
+    const [username, setUsername] = useState("");
 
     useEffect(() => {
         const fetchCharacters = async () => {
@@ -37,22 +38,19 @@ const GameBoard = () => {
     }, []);
 
     const handleCharacterClick = (characterElement, characterData) => {
-        console.log('characterElement:', characterElement); // Debugging line
-        console.log('characterData:', characterData); // Debugging line
-    
         if (characterElement && typeof characterElement.getBoundingClientRect === 'function') {
             setScore(prevScore => prevScore + 1);
             setIsTargetingBoxVisible(true);
-    
+
             const boundingBox = characterElement.getBoundingClientRect();
             const x = boundingBox.left + window.pageXOffset;
             const y = boundingBox.top + window.pageYOffset;
-    
+
             setTargetingBoxPosition({ x, y });
         } else {
             console.error('Invalid element passed to handleCharacterClick');
         }
-    };       
+    };
 
     const startNewGame = () => {
         setScore(0);
@@ -60,11 +58,16 @@ const GameBoard = () => {
         setTargetingBoxPosition({ x: 0, y: 0 });
     };
 
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
+    };
+
     return (
         <div data-testid="game-board">
             <Background />
             <Pokemon />
-            <ScoreBoard score={score} startNewGame={startNewGame} username="exampleUser" />
+            <input type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
+            <ScoreBoard score={score} startNewGame={startNewGame} />
             {characters.map((character, index) => (
                 <Character key={index} onClick={handleCharacterClick} character={character} />
             ))}

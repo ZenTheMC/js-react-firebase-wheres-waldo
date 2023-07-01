@@ -11,9 +11,8 @@ const Character = ({ character, onClick }) => {
     };
 
     const handleClick = (event) => {
-        console.log('event.currentTarget:', event.currentTarget); // Debugging line
-        onClick(event.currentTarget);
-    };    
+        onClick(event.currentTarget, character); // Pass both the DOM element and character data
+    };       
 
     return (
         <img
