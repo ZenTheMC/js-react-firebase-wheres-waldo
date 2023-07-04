@@ -3,11 +3,13 @@
     flex-direction: column;
     position: relative;
     height: 7400px;
+    z-index: -1; /* Set z-index to ensure it is behind characters */
 }
   
 .backgroundContainer img {
     width: 100%;
     display: block;
+    position: relative; /* Add this line */
 }
 
 @media screen and (max-width: 750px) {

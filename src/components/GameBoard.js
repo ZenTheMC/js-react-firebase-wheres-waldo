@@ -37,20 +37,13 @@ const GameBoard = () => {
         fetchCharacters();
     }, []);
 
-    const handleCharacterClick = (characterElement, characterData) => {
-        if (characterElement && typeof characterElement.getBoundingClientRect === 'function') {
-            setScore(prevScore => prevScore + 1);
-            setIsTargetingBoxVisible(true);
-
-            const boundingBox = characterElement.getBoundingClientRect();
-            const x = boundingBox.left + window.pageXOffset;
-            const y = boundingBox.top + window.pageYOffset;
-
-            setTargetingBoxPosition({ x, y });
-        } else {
-            console.error('Invalid element passed to handleCharacterClick');
-        }
-    };
+    const handleCharacterClick = (characterPosition, characterData) => {
+        setScore(prevScore => prevScore + 1);
+        setIsTargetingBoxVisible(true);
+    
+        // Use the character's position in pixels to set the position of the TargetingBox
+        setTargetingBoxPosition(characterPosition);
+    };  
 
     const startNewGame = () => {
         setScore(0);
@@ -63,7 +56,7 @@ const GameBoard = () => {
     };
 
     return (
-        <div data-testid="game-board">
+        <div id="game-board" data-testid="game-board" style={{ position: 'relative' }}>
             <Background />
             <Pokemon />
             <input type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />

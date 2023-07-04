@@ -16,7 +16,8 @@ const TargetingBox = ({ position, characters }) => {
         height: boxHeight,
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        zIndex: 10 // Set a higher z-index
     };
 
     return (

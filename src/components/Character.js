@@ -1,27 +1,26 @@
-import React from "react";
+import React from 'react';
 
 const Character = ({ character, onClick }) => {
-    const { url, location } = character;
-
-    const characterStyle = {
-        position: 'absolute',
-        top: `${location.y}%`,
-        left: `${location.x}%`,
-        cursor: 'pointer',
+    const handleClick = (event) => {
+        const boundingBox = event.target.getBoundingClientRect();
+        const x = boundingBox.left + window.pageXOffset;
+        const y = boundingBox.top + window.pageYOffset;
+        onClick({ x, y }, character);
     };
 
-    const handleClick = (event) => {
-        onClick(event.currentTarget, character); // Pass both the DOM element and character data
-    };       
-
     return (
-        <img
-            data-testid="character"
-            src={url}
-            alt="character"
-            style={characterStyle}
+        <div
+            className='character'
             onClick={handleClick}
-        />
+            style={{
+                position: 'absolute',
+                top: `${character.location.y}px`,
+                left: `${character.location.x}px`,
+                zIndex: 10 // Set a higher z-index
+            }}
+        >
+            <img src={character.url} alt={character.name} />
+        </div>
     );
 };
 
