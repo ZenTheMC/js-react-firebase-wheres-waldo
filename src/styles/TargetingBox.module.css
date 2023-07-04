@@ -1,0 +1,10 @@
+.targetingBox {
+    position: absolute;
+    border: 2px solid red;
+    background-color: white;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}

@@ -14,7 +14,7 @@ import Route10 from '../images/Route-10.jpeg';
 
 const Background = () => {
   return (
-    <div className={styles.backgroundContainer}>
+    <div className={styles.background}>
       <img src={Route1} alt="Route 1" />
       <img src={Route2} alt="Route 2" />
       <img src={Route3} alt="Route 3" />

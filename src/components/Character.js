@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../styles/Character.module.css';
 
 const Character = ({ character, onClick }) => {
     const handleClick = (event) => {
@@ -10,13 +11,11 @@ const Character = ({ character, onClick }) => {
 
     return (
         <div
-            className='character'
+            className={styles.character}
             onClick={handleClick}
             style={{
-                position: 'absolute',
                 top: `${character.location.y}px`,
                 left: `${character.location.x}px`,
-                zIndex: 10 // Set a higher z-index
             }}
         >
             <img src={character.url} alt={character.name} />
