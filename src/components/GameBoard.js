@@ -56,15 +56,17 @@ const GameBoard = () => {
     };
 
     return (
-        <div id="game-board" data-testid="game-board" style={{ position: 'relative' }}>
+        <div id="game-board" data-testid="game-board" style={{ position: 'relative', height: '100vh' }}>
             <Background />
-            <Pokemon />
-            <input type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
-            <ScoreBoard score={score} startNewGame={startNewGame} />
-            {characters.map((character, index) => (
-                <Character key={index} onClick={handleCharacterClick} character={character} />
-            ))}
-            {isTargetingBoxVisible && <TargetingBox position={targetingBoxPosition} characters={characters} />}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
+                <Pokemon />
+                <input type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} style={{ position: 'absolute', top: '10px', left: '10px' }} />
+                <ScoreBoard score={score} startNewGame={startNewGame} style={{ position: 'absolute', top: '10px', right: '10px' }} />
+                {characters.map((character, index) => (
+                    <Character key={index} onClick={handleCharacterClick} character={character} />
+                ))}
+                {isTargetingBoxVisible && <TargetingBox position={targetingBoxPosition} characters={characters} />}
+            </div>
         </div>
     );
 };

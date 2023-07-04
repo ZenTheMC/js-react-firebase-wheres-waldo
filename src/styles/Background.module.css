@@ -1,19 +1,16 @@
-.backgroundContainer {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    height: 7400px;
-    z-index: -1; /* Set z-index to ensure it is behind characters */
-}
-  
-.backgroundContainer img {
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    display: block;
-    position: relative; /* Add this line */
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -1;
 }
 
 @media screen and (max-width: 750px) {
-    .backgroundContainer {
-        height: 5000px;
+    .background {
+        height: 2em;
     }
 }
