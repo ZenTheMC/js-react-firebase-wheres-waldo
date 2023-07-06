@@ -1,34 +1,21 @@
 import React, { useState } from "react";
 import GameBoard from "../components/GameBoard";
-import Timer from "../components/Timer";
-import ScoreBoard from "../components/ScoreBoard";
+import Navbar from "../components/Navbar";
 
 const Game = () => {
   const [score, setScore] = useState(0);
-  const [username, setUsername] = useState('');
 
   const startNewGame = () => {
-    setScore(0); // Reset score
+    setScore(0);
   };
 
   const incrementScore = () => {
     setScore(score + 1);
   };
 
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
-  };
-
   return (
-    <div data-testid="game">
-      <h1>Where's Waldo Game</h1>
-      <div>
-        <input type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
-      </div>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Timer />
-        <ScoreBoard score={score} startNewGame={startNewGame} username={username} />
-      </div>
+    <div data-testid="game" style={{ minHeight: '100vh' }}>
+      <Navbar startNewGame={startNewGame} score={score} />
       <GameBoard incrementScore={incrementScore} />
     </div>
   );
