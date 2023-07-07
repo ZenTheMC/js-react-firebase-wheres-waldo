@@ -1,9 +1,9 @@
 import React from "react";
 import CharacterSelection from "./CharacterSelection";
 
-const TargetingBox = ({ position, characters }) => {
-    const boxWidth = 135; // You can adjust this
-    const boxHeight = 20; // You can adjust this
+const TargetingBox = ({ position, characters, incrementScore }) => {
+    const boxWidth = 135;
+    const boxHeight = 20;
 
     const targetingBoxStyle = {
         position: 'absolute',
@@ -17,12 +17,12 @@ const TargetingBox = ({ position, characters }) => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 10 // Set a higher z-index
+        zIndex: 10
     };
 
     return (
         <div data-testid="targeting-box" style={targetingBoxStyle}>
-            <CharacterSelection position={position} characters={characters} />
+            <CharacterSelection position={position} characters={characters} incrementScore={incrementScore} />
         </div>
     );
 };

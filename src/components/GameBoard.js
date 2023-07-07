@@ -33,8 +33,7 @@ const GameBoard = ({ incrementScore }) => {
         fetchCharacters();
     }, []);
 
-    const handleCharacterClick = (characterPosition, characterData) => {
-        incrementScore(); // Increment the score
+    const handleCharacterClick = (characterPosition) => {
         setIsTargetingBoxVisible(true);
         setTargetingBoxPosition(characterPosition);
     };  
@@ -46,7 +45,7 @@ const GameBoard = ({ incrementScore }) => {
                 {characters.map((character, index) => (
                     <Character key={index} onClick={handleCharacterClick} character={character} />
                 ))}
-                {isTargetingBoxVisible && <TargetingBox position={targetingBoxPosition} characters={characters} />}
+                {isTargetingBoxVisible && <TargetingBox position={targetingBoxPosition} characters={characters} incrementScore={incrementScore} />}
             </div>
         </div>
     );
