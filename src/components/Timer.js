@@ -30,10 +30,10 @@ const Timer = () => {
                 Time: {seconds} seconds
             </div>
             <button onClick={startGame}>
-                Start Game
+                Reset Timer-DELETE THIS
             </button>
             <button onClick={endGame}>
-                End Game
+                Freeze Timer-DELETE THIS
             </button>
         </div>
     );
