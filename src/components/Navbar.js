@@ -10,7 +10,7 @@ const Navbar = ({ startNewGame, score }) => {
   };
 
   return (
-    <nav style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', backgroundColor: '#333', color: 'white' }}>
+    <nav style={{ position: 'fixed', top: 0, width: '99%', zIndex: 1000, display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px', backgroundColor: '#333', color: 'white', }}>
       <h1>WHERE'S THAT POKEMON!?</h1>
       <h2><strong>PLEASE PLAY IN FULL SCREEN WEBPAGE</strong></h2>
       <div>
