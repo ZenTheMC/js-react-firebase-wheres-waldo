@@ -1,5 +1,6 @@
 import React from 'react';
 import Timer from './Timer';
+import { Link } from 'react-router-dom';
 
 const Navbar = ({ score, isGameOver }) => {
 
@@ -10,6 +11,7 @@ const Navbar = ({ score, isGameOver }) => {
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <Timer isGameOver={isGameOver} />
         <div>Score: {score}</div>
+        <Link to="/leaderboards" style={{ color: 'white', textDecoration: 'none', marginLeft: '20px', border: 'solid 1px', padding: '5px' }}>Leaderboards Page</Link>
       </div>
     </nav>
   );
