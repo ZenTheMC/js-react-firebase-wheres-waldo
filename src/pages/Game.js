@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import GameBoard from "../components/GameBoard";
 import Navbar from "../components/Navbar";
 import EndGameMenu from "../components/EndGameMenu";
@@ -6,6 +6,11 @@ import EndGameMenu from "../components/EndGameMenu";
 const Game = () => {
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [startTime, setStartTime] = useState(null);
+
+  useEffect(() => {
+    setStartTime(Date.now());
+  }, []);
 
   const startNewGame = () => {
     setScore(0);
@@ -23,7 +28,7 @@ const Game = () => {
     <div data-testid="game" style={{ minHeight: '100vh' }}>
       <Navbar score={score} isGameOver={isGameOver} />
       <GameBoard incrementScore={incrementScore} />
-      {isGameOver && <EndGameMenu startNewGame={startNewGame} score={score} />}
+      {isGameOver && <EndGameMenu startNewGame={startNewGame} score={score} startTime={startTime} />}
     </div>
   );
 };

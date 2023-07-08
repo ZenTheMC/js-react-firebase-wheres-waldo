@@ -11,7 +11,7 @@ const FetchTopScores = () => {
             try {
                 const scoresSnapshot = await db.collection("scores")
                     .orderBy("score", "desc")
-                    .orderBy("timestamp", "asc")
+                    .orderBy("time", "asc")
                     .limit(10)
                     .get();
                 setScores(scoresSnapshot.docs.map(doc => doc.data()));

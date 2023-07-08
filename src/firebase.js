@@ -14,13 +14,13 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const addScore = async (username, score,) => {
+const addScore = async (username, score, gameTime) => {
   try {
     const scoresCollection = collection(db, 'scores');
     const docRef = await addDoc(scoresCollection, {
       username,
       score,
-      timestamp: new Date()
+      time: gameTime
     });
     console.log("Score added with ID: ", docRef.id);
   } catch (e) {

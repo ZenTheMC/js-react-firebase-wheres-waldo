@@ -1,13 +1,13 @@
 import React from "react";
 import { addScore } from '../firebase';
 
-const ScoreBoard = ({ score, startNewGame, username }) => {
+const ScoreBoard = ({ score, startNewGame, username, gameTime }) => {
     const handleNewGame = () => {
         if (username.trim() === '') {
             alert('Please enter a username before starting a new game.');
         } else {
             startNewGame();
-            addScore(username, score);
+            addScore(username, score, gameTime);
         }
     };
 
