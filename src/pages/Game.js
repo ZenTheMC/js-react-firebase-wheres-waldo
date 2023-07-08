@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import GameBoard from "../components/GameBoard";
 import Navbar from "../components/Navbar";
+import EndGameMenu from "../components/EndGameMenu";
 
 const Game = () => {
   const [score, setScore] = useState(0);
@@ -20,8 +21,9 @@ const Game = () => {
 
   return (
     <div data-testid="game" style={{ minHeight: '100vh' }}>
-      <Navbar startNewGame={startNewGame} score={score} isGameOver={isGameOver} />
+      <Navbar score={score} isGameOver={isGameOver} />
       <GameBoard incrementScore={incrementScore} />
+      {isGameOver && <EndGameMenu startNewGame={startNewGame} score={score} />}
     </div>
   );
 };

@@ -17,7 +17,7 @@ const ScoreBoard = ({ score, startNewGame, username }) => {
                 Current Score: {score}
             </div>
             <button data-testid="start-new-game" onClick={handleNewGame}>
-                Submit + Reset Score-DELETE when this is made into something that happens at the end of the game
+                Submit Your Score!
             </button>
         </div>
     );
