@@ -28,4 +28,4 @@ const addScore = async (username, score, gameTime) => {
   }
 };
 
-export { db, addScore };
+export { db, addScore, collection };

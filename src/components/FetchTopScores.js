@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
+import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
 
 const FetchTopScores = () => {
     const [loading, setLoading] = useState(true);
@@ -9,14 +10,13 @@ const FetchTopScores = () => {
     useEffect(() => {
         const fetchTopScores = async () => {
             try {
-                const scoresSnapshot = await db.collection("scores")
-                    .orderBy("score", "desc")
-                    .orderBy("time", "asc")
-                    .limit(10)
-                    .get();
+                const scoresCollection = collection(db, "scores");
+                const q = query(scoresCollection, orderBy("score", "desc"), orderBy("time", "asc"), limit(10));
+                const scoresSnapshot = await getDocs(q);
                 setScores(scoresSnapshot.docs.map(doc => doc.data()));
             } catch (err) {
                 setError("Failed to fetch scores");
+                console.error(err);
             } finally {
                 setLoading(false);
             }
@@ -38,7 +38,7 @@ const FetchTopScores = () => {
             <ul>
                 {scores.map((score, index) => (
                     <li key={index}>
-                        {score.username}: {score.score}
+                        {score.username}: {score.score}, Time: {score.time}
                     </li>
                 ))}
             </ul>
