@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Timer from './Timer';
 import ScoreBoard from './ScoreBoard';
 
-const Navbar = ({ startNewGame, score }) => {
+const Navbar = ({ startNewGame, score, isGameOver }) => {
   const [username, setUsername] = useState('');
 
   const handleUsernameChange = (event) => {
@@ -17,7 +17,7 @@ const Navbar = ({ startNewGame, score }) => {
         <input type="text" placeholder="Make into endgame message" value={username} onChange={handleUsernameChange} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center' }}>
-        <Timer />
+        <Timer isGameOver={isGameOver} />
         <ScoreBoard score={score} startNewGame={startNewGame} username={username} />
       </div>
     </nav>
