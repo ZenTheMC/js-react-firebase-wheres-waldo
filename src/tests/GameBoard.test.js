@@ -41,21 +41,12 @@ jest.mock('../components/Character', () => {
     };
 });
 
-// Mock Background and Pokemon components
+// Mock Background component
 jest.mock('../components/Background', () => {
     return {
         __esModule: true,
         default: () => {
             return <div data-testid="background"></div>;
-        },
-    };
-});
-
-jest.mock('../components/Pokemon', () => {
-    return {
-        __esModule: true,
-        default: () => {
-            return <div data-testid="pokemon"></div>;
         },
     };
 });

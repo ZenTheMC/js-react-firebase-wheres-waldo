@@ -23,10 +23,10 @@ const ScoreBoard = ({ score, username, gameTime }) => {
     return (
         <div>
             {notification && <Notification message={notification} />}
-            <div data-testid="score-display">
+            <div data-testid="score-display" style={{ background: 'navy', color: 'yellow', textDecoration: 'none', display: 'block', marginTop: '20px', border: 'solid 1px', padding: '5px' }} >
                 Current Score: {score}
             </div>
-            <button data-testid="submit-score" onClick={handleSubmitScore}>
+            <button data-testid="submit-score" onClick={handleSubmitScore} style={{ background: 'navy', color: 'yellow', textDecoration: 'none', display: 'block', marginTop: '20px', border: 'solid 1px', padding: '5px' }} >
                 Submit Your Score!
             </button>
         </div>

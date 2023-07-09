@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import PhotoDisplay from "../components/PhotoDisplay";
-import "@testing-library/jest-dom"
+import "@testing-library/jest-dom";
 
 test("renders PhotoDisplay component with an image", () => {
   // Define mock data to pass as props

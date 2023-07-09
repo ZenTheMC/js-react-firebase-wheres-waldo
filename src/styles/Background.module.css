@@ -8,12 +8,6 @@
 }
 
 .backgroundImage {
-    /* Old code
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    */
-    /* New code */
     width: 100%;
     height: auto;
 }
