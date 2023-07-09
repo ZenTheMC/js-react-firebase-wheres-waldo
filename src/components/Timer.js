@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
 
-const Timer = ( { isGameOver } ) => {
+const Timer = ({ isGameOver, isGameStarted }) => {
     const [seconds, setSeconds] = useState(0);
 
     useEffect(() => {
         let interval;
-        if (!isGameOver) {
+        if (isGameStarted && !isGameOver) {
             interval = setInterval(() => {
-                setSeconds(seconds => seconds + 1);
+                setSeconds(prevSeconds => prevSeconds + 1);
             }, 1000);
         }
 
         return () => clearInterval(interval);
-    }, [isGameOver]);
+    }, [isGameOver, isGameStarted]);
 
     return (
         <div>
-            <div data-testid="timer-display">
+            <div data-testid="timer-display" style={{ border: 'solid 1px', padding: '5px', }}>
                 Time: {seconds} seconds
             </div>
         </div>
