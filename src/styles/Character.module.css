@@ -2,3 +2,8 @@
     position: absolute;
     z-index: 3;
 }
+
+.characterImage {
+    width: 100%;
+    height: 100%;
+}

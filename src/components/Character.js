@@ -26,7 +26,7 @@ const Character = ({ character, onClick }) => {
                 height: `${characterHeightPixel}px`,
             }}
         >
-            <img src={character.url} alt={character.name} style={{ width: '100%', height: '100%' }} />
+            <img src={character.url} alt={character.name} className={styles.characterImage} />
         </div>
     );
 };
