@@ -11,7 +11,7 @@ const FetchTopScores = () => {
         const fetchTopScores = async () => {
             try {
                 const scoresCollection = collection(db, "scores");
-                const q = query(scoresCollection, orderBy("score", "desc"), orderBy("time", "asc"), limit(10));
+                const q = query(scoresCollection, orderBy("score", "desc"), orderBy("time", "asc"), limit(50));
                 const scoresSnapshot = await getDocs(q);
                 setScores(scoresSnapshot.docs.map(doc => doc.data()));
             } catch (err) {
