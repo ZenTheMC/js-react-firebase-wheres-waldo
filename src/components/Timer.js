@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import styles from '../styles/Timer.module.css';
 
 const Timer = ({ isGameOver, isGameStarted }) => {
     const [seconds, setSeconds] = useState(0);
@@ -16,7 +17,7 @@ const Timer = ({ isGameOver, isGameStarted }) => {
 
     return (
         <div>
-            <div data-testid="timer-display" style={{ border: 'solid 1px', padding: '5px', }}>
+            <div data-testid="timer-display" className={styles.timerDisplay}>
                 Time: {seconds} seconds
             </div>
         </div>
