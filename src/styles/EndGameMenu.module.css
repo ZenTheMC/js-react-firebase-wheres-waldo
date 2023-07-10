@@ -1,0 +1,29 @@
+.menu {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: navy;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.menuButton {
+    background: navy;
+    color: yellow;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    border: solid 1px;
+    padding: 5px;
+}
+
+.menuLink {
+    color: yellow;
+    text-decoration: none;
+    display: block;
+    margin-top: 20px;
+    border: solid 1px;
+    padding: 5px;
+}
