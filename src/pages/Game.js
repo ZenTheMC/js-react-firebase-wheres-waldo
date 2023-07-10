@@ -3,6 +3,7 @@ import GameBoard from "../components/GameBoard";
 import Navbar from "../components/Navbar";
 import EndGameMenu from "../components/EndGameMenu";
 import StartGameMenu from "../components/StartGameMenu.js";
+import styles from '../styles/Game.module.css';
 
 const Game = () => {
   const [score, setScore] = useState(0);
@@ -34,7 +35,7 @@ const Game = () => {
   };
 
   return (
-    <div data-testid="game" style={{ minHeight: '100vh' }}>
+    <div data-testid="game" className={styles.game}>
       <Navbar score={score} isGameOver={isGameOver} isGameStarted={!isStartMenuVisible} />
       {isStartMenuVisible && <StartGameMenu onStart={handleStartGame} />}
       <GameBoard incrementScore={incrementScore} />
