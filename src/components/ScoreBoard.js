@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { addScore } from '../firebase';
 import Notification from './Notification';
+import styles from '../styles/ScoreBoard.module.css';
 
 const ScoreBoard = ({ score, username, gameTime }) => {
     const [notification, setNotification] = useState(null);
@@ -23,10 +24,10 @@ const ScoreBoard = ({ score, username, gameTime }) => {
     return (
         <div>
             {notification && <Notification message={notification} />}
-            <div data-testid="score-display" style={{ background: 'navy', color: 'yellow', textDecoration: 'none', display: 'block', marginTop: '20px', border: 'solid 1px', padding: '5px' }} >
+            <div className={styles.scoreDisplay}>
                 Current Score: {score}
             </div>
-            <button data-testid="submit-score" onClick={handleSubmitScore} style={{ background: 'navy', color: 'yellow', textDecoration: 'none', display: 'block', marginTop: '20px', border: 'solid 1px', padding: '5px' }} >
+            <button className={styles.submitScore} onClick={handleSubmitScore}>
                 Submit Your Score!
             </button>
         </div>
