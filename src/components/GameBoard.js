@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import { collection, getDocs } from "firebase/firestore";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
 import TargetingBox from "./TargetingBox";
+import styles from '../styles/GameBoard.module.css';
 
 const GameBoard = ({ incrementScore }) => {
     const [characters, setCharacters] = useState([]);
@@ -39,9 +40,9 @@ const GameBoard = ({ incrementScore }) => {
     };  
 
     return (
-        <div id="game-board" data-testid="game-board" style={{ position: 'relative', minHeight: '100vh' }}>
+        <div id="game-board" data-testid="game-board" className={styles.gameBoard}>
             <Background />
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1 }}>
+            <div className={styles.characterContainer}>
                 {characters.map((character, index) => (
                     <Character key={index} onClick={handleCharacterClick} character={character} />
                 ))}
