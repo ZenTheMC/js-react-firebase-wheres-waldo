@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import ScoreBoard from './ScoreBoard';
 import { Link } from 'react-router-dom';
 
-const EndGameMenu = ({ startNewGame, score, startTime }) => {
+const EndGameMenu = ({ startNewGame, score, gameTime }) => {
   const [username, setUsername] = useState('');
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
-
-  const gameTime = Math.floor((Date.now() - startTime) / 1000);
 
   return (
     <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', background: 'navy', padding: '20px', borderRadius: '10px', zIndex: 1000 }}>

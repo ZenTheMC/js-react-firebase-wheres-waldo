@@ -9,6 +9,7 @@ const Game = () => {
   const [isGameOver, setIsGameOver] = useState(false);
   const [startTime, setStartTime] = useState(null);
   const [isStartMenuVisible, setIsStartMenuVisible] = useState(true);
+  const [gameTime, setGameTime] = useState(0);
 
   useEffect(() => {
     setStartTime(Date.now());
@@ -28,6 +29,7 @@ const Game = () => {
     setScore(score + 1);
     if (score + 1 === 5) {
       setIsGameOver(true);
+      setGameTime(Math.floor((Date.now() - startTime) / 1000));
     }
   };
 
@@ -36,7 +38,7 @@ const Game = () => {
       <Navbar score={score} isGameOver={isGameOver} isGameStarted={!isStartMenuVisible} />
       {isStartMenuVisible && <StartGameMenu onStart={handleStartGame} />}
       <GameBoard incrementScore={incrementScore} />
-      {isGameOver && <EndGameMenu startNewGame={startNewGame} score={score} startTime={startTime} />}
+      {isGameOver && <EndGameMenu startNewGame={startNewGame} score={score} startTime={startTime} gameTime={gameTime} />}
     </div>
   );
 };
