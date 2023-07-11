@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebase";
 import { collection, query, orderBy, limit, getDocs } from "firebase/firestore";
+import styles from '../styles/FetchTopScores.module.css';
 
 const FetchTopScores = () => {
     const [loading, setLoading] = useState(true);
@@ -36,7 +37,7 @@ const FetchTopScores = () => {
         <div>
             <ul>
                 {scores.map((score, index) => (
-                    <li key={index}>
+                    <li key={index} className={styles.li} >
                         <strong>Username:</strong> {score.username}, <strong>Score:</strong> {score.score}, <strong>Time:</strong> {score.time} seconds
                     </li>
                 ))}
