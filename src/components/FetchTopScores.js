@@ -37,7 +37,7 @@ const FetchTopScores = () => {
         <div>
             <ul>
                 {scores.map((score, index) => (
-                    <li key={index} className={styles.li} >
+                    <li key={index} className={styles.scoreItem} >
                         <strong>Username:</strong> {score.username}, <strong>Score:</strong> {score.score}, <strong>Time:</strong> {score.time} seconds
                     </li>
                 ))}
